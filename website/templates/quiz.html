@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+{% block title %}Quiz{% endblock %}
+{% block content %}
+
+<style>
+  body {
+    background-color: #2C3E50; /* Dark Blue-Gray */
+    color: #ecf0f1; /* Light Gray */
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  h1 {
+    color: #3498db; /* Blue */
+  }
+
+  #quiz-container {
+    width: 50%;
+    margin: 20px auto;
+    text-align: left;
+  }
+
+  .question {
+    margin-bottom: 10px;
+  }
+
+  .options {
+    margin-bottom: 20px;
+  }
+
+  .option {
+    margin-right: 10px;
+  }
+
+  button.btn-primary {
+    background-color: #3498db; /* Blue */
+    color: #ecf0f1; /* Light Gray */
+  }
+
+  .footer {
+    background: #2c3e50; /* Dark Blue-Gray for the footer */
+    color: #ecf0f1; /* Light Gray for footer text */
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    position: absolute; /* Ubah posisi menjadi absolut */
+    bottom: 0;
+  }
+</style>
+
+<div class="container">
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="alert alert-danger">
+        <ul>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissable fade show" role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <h1 align="center">Quiz</h1>
+
+  <form id="quizForm" method="POST">
+    <div id="quiz-container">
+      <!-- Question 1 -->
+      <div class="question">
+        <p>1. What is Python?</p>
+      </div>
+      <div class="options">
+        <label class="option">
+          <input type="radio" name="question1" value="option1"> A programming language
+        </label>
+        <label class="option">
+          <input type="radio" name="question1" value="option2"> A type of snake
+        </label>
+        <label class="option">
+          <input type="radio" name="question1" value="option3"> A type of fruit
+        </label>
+      </div>
+
+      <!-- Question 2 -->
+      <div class="question">
+        <p>2. How do you comment in Python?</p>
+      </div>
+      <div class="options">
+        <label class="option">
+          <input type="radio" name="question2" value="option1"> // This is a comment
+        </label>
+        <label class="option">
+          <input type="radio" name="question2" value="option2"> # This is a comment
+        </label>
+        <label class="option">
+          <input type="radio" name="question2" value="option3"> /* This is a comment */
+        </label>
+      </div>
+
+      <!-- Question 3 -->
+      <div class="question">
+        <p>3. What is the output of print(2 + 2)?</p>
+      </div>
+      <div class="options">
+        <label class="option">
+          <input type="radio" name="question3" value="option1"> 4
+        </label>
+        <label class="option">
+          <input type="radio" name="question3" value="option2"> 22
+        </label>
+        <label class="option">
+          <input type="radio" name="question3" value="option3"> "4"
+        </label>
+      </div>
+
+      <!-- Question 4 -->
+      <div class="question">
+        <p>4. What is a list in Python?</p>
+      </div>
+      <div class="options">
+        <label class="option">
+          <input type="radio" name="question4" value="option1"> A data type
+        </label>
+        <label class="option">
+          <input type="radio" name="question4" value="option2"> A collection of elements
+        </label>
+        <label class="option">
+          <input type="radio" name="question4" value="option3"> A loop
+        </label>
+      </div>
+
+      <!-- Question 5 -->
+      <div class="question">
+        <p>5. How do you define a function in Python?</p>
+      </div>
+      <div class="options">
+        <label class="option">
+          <input type="radio" name="question5" value="option1"> function my_function():
+        </label>
+        <label class="option">
+          <input type="radio" name="question5" value="option2"> def my_function():
+        </label>
+        <label class="option">
+          <input type="radio" name="question5" value="option3"> func my_function():
+        </label>
+      </div>
+
+      <!-- Question 6 -->
+      <div class="question">
+        <p>6. What is the purpose of the "if" statement in Python?</p>
+      </div>
+      <div class="options">
+        <label class="option">
+          <input type="radio" name="question6" value="option1"> To define a function
+        </label>
+        <label class="option">
+          <input type="radio" name="question6" value="option2"> To create a loop
+        </label>
+        <label class="option">
+          <input type="radio" name="question6" value="option3"> To make decisions or perform actions based on conditions
+        </label>
+      </div>
+
+      <div align="center">
+        <button type="submit" class="btn btn-primary">Submit Jawaban</button>
+      </div>
+
+      <div id="errorMessages" class="error-message"></div>
+    </div>
+  </form>
+
+  <div class="footer">
+    <p>&copy; 2024 Quiz Website | Author: Aditya Dwi Cahyono</p>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Add an event listener to the submit button
+      document.getElementById("quizForm").addEventListener("submit", function (event) {
+        // Check if all questions are answered
+        if (!validateQuiz()) {
+          // Display an error message if validation fails
+          document.getElementById("errorMessages").innerHTML = "Please answer all questions.";
+          // Prevent the form from being submitted
+          event.preventDefault();
+        } else {
+          // Clear any existing error messages
+          document.getElementById("errorMessages").innerHTML = "";
+        }
+      });
+
+      // Function to validate the quiz
+      function validateQuiz() {
+        // Assuming you have 6 questions, adjust as needed
+        for (let questionNumber = 1; questionNumber <= 6; questionNumber++) {
+          // Check if the radio button for the current question is checked
+          if (!document.querySelector(`input[name="question${questionNumber}"]:checked`)) {
+            return false; // Return false if any question is not answered
+          }
+        }
+        return true; // Return true if all questions are answered
+      }
+    });
+  </script>
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<style>
+  body {
+    background-color: #2C3E50; /* Dark Blue-Gray */
+    color: #ecf0f1; /* Light Gray */
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .login-container {
+    background: rgba(52, 73, 94, 0.8); /* Semi-transparent Dark Blue-Gray */
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .form-group label {
+    color: #ecf0f1; /* Light Gray for form labels */
+  }
+
+  .footer {
+    background: #34495e; /* Darker Blue-Gray for the footer */
+    color: #ecf0f1; /* Light Gray for footer text */
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+  }
+</style>
+
+<div class="container login-container">
+  <form method="POST" id="loginForm">
+    <h3 class="mb-4" align="center">Login</h3>
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required />
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+  </form>
+</div>
+
+<div class="footer">
+  <p>&copy; 2024 Quiz Website | Author: Aditya Dwi Cahyono</p>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('#loginForm').submit(function (event) {
+      var password = $('#password').val();
+
+      // Your custom validation logic here
+
+      // Example: Ensure the password is at least 6 characters long
+      if (password.length < 6) {
+        alert('Password should be at least 6 characters long.');
+        event.preventDefault();
+      }
+    });
+  });
+</script>
+{% endblock %}

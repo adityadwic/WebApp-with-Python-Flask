@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<style>
+  body {
+    background-color: #2C3E50; /* Dark Blue-Gray */
+    color: #ecf0f1; /* Light Gray */
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  h1 {
+    color: #3498db; /* Blue */
+  }
+
+  nav.navbar {
+    background-color: #2980b9; /* Dark Blue */
+    padding: 10px;
+  }
+
+  .navbar-nav a {
+    color: #ecf0f1 !important; /* Light Gray */
+    margin-right: 20px;
+    font-weight: bold;
+  }
+
+  .navbar-nav a:hover {
+    color: #2c3e50 !important; /* Dark Blue-Gray */
+  }
+
+  #notes {
+    width: 50%;
+    margin: 20px auto;
+    list-style: none;
+    padding: 0;
+  }
+
+  .list-group-item {
+    background-color: #34495e; /* Darker Blue-Gray */
+    color: #ecf0f1; /* Light Gray */
+    margin-bottom: 10px;
+    border: 1px solid #2c3e50; /* Dark Blue-Gray */
+    border-radius: 5px;
+    padding: 10px;
+    position: relative;
+  }
+
+  .list-group-item button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #ecf0f1; /* Light Gray */
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  .form-control {
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  button.btn-primary {
+    background-color: #3498db; /* Blue */
+    color: #ecf0f1; /* Light Gray */
+  }
+
+  .footer {
+    background: #2c3e50; /* Dark Blue-Gray for the footer */
+    color: #ecf0f1; /* Light Gray for footer text */
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    position: absolute; /* Ubah posisi menjadi absolut */
+    bottom: 0;
+  }
+</style>
+
+
+<h1 align="center">Questions</h1>
+
+<script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+<div class="elfsight-app-98932ac6-db56-4746-a194-2fd674a06534" data-elfsight-app-lazy align="center"></div>
+
+<ul class="list-group list-group-flush" id="notes">
+  {% for note in user.notes %}
+  <li class="list-group-item">
+    {{ note.data }}
+    <button type="button" class="close" onClick="deleteNote({{ note.id }})">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </li>
+  {% endfor %}
+</ul>
+<form method="POST">
+  <textarea name="note" id="note" class="form-control"></textarea>
+  <br />
+  <div align="center">
+    <button type="submit" class="btn btn-primary">Add Question</button>
+  </div>
+</form>
+
+
+
+<div class="footer">
+  <p>&copy; 2024 Quiz Website | Author: Aditya Dwi Cahyono</p>
+</div>
+
+{% endblock %}
