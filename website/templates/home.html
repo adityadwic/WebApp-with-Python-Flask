@@ -82,10 +82,10 @@
 </style>
 
 
-<h1 align="center">Questions</h1>
-
 <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
 <div class="elfsight-app-98932ac6-db56-4746-a194-2fd674a06534" data-elfsight-app-lazy align="center"></div>
+
+<h1 align="center">Questions</h1>
 
 <ul class="list-group list-group-flush" id="notes">
   {% for note in user.notes %}
@@ -105,7 +105,14 @@
   </div>
 </form>
 
-
+<div id="leaderboard-container">
+  <h2>Leaderboard</h2>
+  <ul>
+      {% for player in leaderboard %}
+          <li>{{ player.user.first_name }} - {{ player.score }}%</li>
+      {% endfor %}
+  </ul>
+</div>
 
 <div class="footer">
   <p>&copy; 2024 Quiz Website | Author: Aditya Dwi Cahyono</p>

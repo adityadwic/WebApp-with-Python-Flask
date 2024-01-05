@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <!-- Link to Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyIdlNl9+gq1IHjFhL/b6ZJoT5CJxj2A2u" crossorigin="anonymous">
+    <!-- Optional: Add your custom styles here -->
+    <style>
+        body {
+            background-color: #2C3E50; /* Dark Blue-Gray */
+            color: #ecf0f1; /* Light Gray */
+        }
+
+        .container {
+            margin-top: 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #3498db; /* Blue */
+        }
+
+        table {
+            background-color: #3498db; /* Blue */
+            color: #ecf0f1; /* Light Gray */
+        }
+
+        th, td {
+            border: 1px solid #ecf0f1; /* Light Gray */
+            padding: 0.75rem;
+            text-align: center;
+        }
+
+        thead {
+            font-weight: bold;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #2980b9; /* Blue Shade */
+        }
+
+        tbody tr:hover {
+            background-color: #1a5276; /* Darker Blue Shade on Hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Leaderboard</h1>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for test_score in test_scores %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ test_score.name }}</td>
+                        <td>{{ test_score.score }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- Link to Bootstrap JS and Popper.js (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-Q6fX8aWXRMSFVKa4C8//Fq2rU6i4hJHpZ56qPd/POjz9rkI1k02M2g1VXUcdP6D5" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyIdlNl9+gq1IHjFhL/b6ZJoT5CJxj2A2u" crossorigin="anonymous"></script>
+</body>
+</html>

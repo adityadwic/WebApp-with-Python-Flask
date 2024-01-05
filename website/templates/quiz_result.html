@@ -1,0 +1,94 @@
+<!-- File: quiz_result.html -->
+
+{% extends "base.html" %}
+{% block title %}Quiz Result{% endblock %}
+{% block content %}
+
+<style>
+  body {
+    background-color: #2C3E50; /* Dark Blue-Gray */
+    color: #ecf0f1; /* Light Gray */
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  h1 {
+    color: #3498db; /* Blue */
+  }
+
+  #quiz-result-container {
+    width: 50%;
+    margin: 20px auto;
+    text-align: center;
+  }
+
+  .result {
+    margin-bottom: 10px;
+  }
+
+  button.btn-primary {
+    background-color: #3498db; /* Blue */
+    color: #ecf0f1; /* Light Gray */
+  }
+
+  .footer {
+    background: #2c3e50; /* Dark Blue-Gray for the footer */
+    color: #ecf0f1; /* Light Gray for footer text */
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    position: absolute; /* Ubah posisi menjadi absolut */
+    bottom: 0;
+  }
+</style>
+
+<div class="container">
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="alert alert-danger">
+        <ul>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissable fade show" role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <h1 align="center">Quiz Result</h1>
+
+  <div id="quiz-result-container">
+    <!-- Display quiz results here -->
+    <div class="result">
+      <p>Hello, {{ username }}! Your score is: {{ score }}%</p>
+    </div>
+    
+    <!-- Link to go back to the quiz page -->
+    <a href="{{ url_for('views.quiz') }}" class="btn btn-primary">Back to Quiz</a>
+  </div>
+
+  <div class="footer">
+    <p>&copy; 2024 Quiz Website | Author: Aditya Dwi Cahyono</p>
+  </div>
+
+</div>
+
+{% endblock %}
